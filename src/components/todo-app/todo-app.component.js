@@ -15,10 +15,10 @@ const TodoApp = ({
     <div id="todo-app">
         <LoginForm />
 
-        {
-            isAdmin &&
+        {/*{*/}
+            {/*isAdmin &&*/}
                 <AddTodo />
-        }
+        {/*}*/}
 
         <SortingBar />
 
