@@ -3,12 +3,10 @@
     margin-bottom: 30px;
 }
 
-#add-todo label span{
-
-}
-
-#add-todo label input{
-
+#add-todo .title{
+    font-weight: bold;
+    font-size: 22px;
+    margin-bottom: 2px;
 }
 
 #add-todo .submitButtonContainer{
@@ -17,7 +15,7 @@
 }
 
 @media (max-width: 768px){
-    #login-form label{
+    #add-todo .submitButtonContainer{
         padding-right: 0;
     }
 

@@ -7,18 +7,23 @@ import AddTodo from '../add-todo/add-todo.component';
 import SortingBar from '../sorting-bar/sorting-bar.component';
 import TodoList from '../todo-list/todo-list.component';
 import Pagination from '../pagination/pagination.component';
+import EditTodoInputs from '../edit-todo-inputs/edit-todo-inputs.component';
 
 
 const TodoApp = ({
-    isAdmin
+    isAdmin,
+    isEditing
 }) => (
     <div id="todo-app">
         <LoginForm />
 
-        {/*{*/}
-            {/*isAdmin &&*/}
-                <AddTodo />
-        {/*}*/}
+        {
+            isAdmin && isEditing &&
+               <EditTodoInputs />
+        }
+
+
+        <AddTodo />
 
         <SortingBar />
 
@@ -30,7 +35,8 @@ const TodoApp = ({
 
 const mapStateToProps = (state) => {
     return {
-        isAdmin: state.signIn.isAdmin
+        isAdmin: state.signIn.isAdmin,
+        isEditing: state.editTodoInfo.isEditing
     }
 };
 

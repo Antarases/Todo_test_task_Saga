@@ -1,56 +1,75 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 import { Grid, Col } from 'react-bootstrap';
 
+import EditTodoButton from '../edit-todo-button/edit-todo-button.component';
+
 import './todo.component.css';
 
-const Todo = ({
+
+let Todo = ({
+    id,
     username,
     email,
     text,
     status,
-    image_path
-}) => (
-    <Grid
-        className="todo"
-        componentClass="section"
-    >
-        <span className="readiness">
-            {
-                status === 10 ?
-                    <span>&#10004;</span> :
-                    ''
-            }
-        </span>
+    image_path,
+    isAdmin
+}) => {
+    let completed;
+    if(status === 0){
+        completed = false;
+    } else if(status === 10){
+        completed = true;
+    }
 
-        <span className="user-info">
-            <div
-                className="image"
-                style={{
-                    background: `url("${image_path}") 50% 50% no-repeat`
-                }}
-            >
-                {console.log(image_path)}
-            </div>
-
-            <div className="user-name">
-                {username}
-            </div>
-
-            <div className="email">
-                {email}
-            </div>
-        </span>
-
-        <Col
-            className="text"
-            lg={8} md={7} sm={6} xs={12}
+    return (
+        <Grid
+            className="todo"
+            componentClass="section"
         >
-            {text}
-        </Col>
-    </Grid>
-);
+            <span className="user-info">
+                <div
+                    className="image"
+                    style={{
+                        background: `url("${image_path}") 50% 50% no-repeat`
+                    }}
+                >
+                </div>
+
+                <div className="user-name">
+                    {username}
+                </div>
+
+                <div className="email">
+                    {email}
+                </div>
+                <div className="readiness">
+                    Status: {completed ? 'completed' : 'not completed' }
+                </div>
+
+                {   isAdmin &&
+                    <Col lg={12} md={12} sm={12} xs={12}>
+                        <EditTodoButton
+                            id={id}
+                            text={text}
+                            status={status}
+                        />
+                    </Col>
+                }
+            </span>
+
+            <Col
+                className="text"
+                lg={8} md={7} sm={6} xs={12}
+            >
+                {text}
+            </Col>
+        </Grid>
+    );
+};
 
 Todo.propTypes = {
     todos: PropTypes.shape({
@@ -59,7 +78,18 @@ Todo.propTypes = {
         text: PropTypes.string,
         status: PropTypes.number,
         image_path: PropTypes.string
-    })
+    }),
+    isAdmin: PropTypes.bool
 };
+
+const mapStateToProps = (state) => {
+    return {
+        isAdmin: state.signIn.isAdmin
+    };
+};
+
+Todo = connect(
+    mapStateToProps
+)(Todo);
 
 export default Todo;

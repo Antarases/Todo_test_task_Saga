@@ -1,0 +1,21 @@
+#edit-todo-button{
+    padding: 1px 7px;
+
+}
+
+#edit-todo-button .text{
+    font-family: sans-serif;
+    padding: 0 0 0 6px !important;
+}
+
+@media (min-width: 768px){
+    #edit-todo-button{
+        margin-top: 5px;
+    }
+}
+
+@media (max-width: 767px){
+    #edit-todo-button{
+        float: right;
+    }
+}

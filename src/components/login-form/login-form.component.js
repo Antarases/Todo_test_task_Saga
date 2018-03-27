@@ -69,7 +69,6 @@ class LoginForm extends React.Component{
                         {`Signing in as Admin failed.
                         Wrong login or password.`}
                      </div>
-
                 }
             </Grid>
         );
@@ -79,7 +78,7 @@ class LoginForm extends React.Component{
 LoginForm.propTypes = {
     isAdmin: PropTypes.bool,
     signInAttempt: PropTypes.bool
-}
+};
 
 const mapStateToProps = (state) => {
     return {

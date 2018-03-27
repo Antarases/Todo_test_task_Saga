@@ -1,4 +1,5 @@
 import url from './server_url';
+import md5 from 'md5';
 
 /*---- Polyfills -------------------------------------------------------------------*/
 import 'whatwg-fetch';
@@ -14,6 +15,7 @@ export const CHANGE_SORT_INFO = 'CHANGE_SORT_INFO';
 export const ADD_TODO = 'ADD_TODO';
 export const CHANGE_PAGE = 'CHANGE_PAGE';
 export const SIGN_IN = 'SIGN_IN';
+export const EDIT_TODO_INFO = 'EDIT_TODO_INFO';
 
 const setTodos = (todos) => {
     return {
@@ -55,6 +57,21 @@ export const signIn = (
     };
 };
 
+export const editTodoInfo = (
+    isEditing,
+    id,
+    text,
+    status
+) => {
+    return {
+        type: EDIT_TODO_INFO,
+        isEditing,
+        id,
+        text,
+        status
+    };
+};
+
 /*--------------------------------------------------------------------------------------------------------------------*/
 
 export function fetchPosts(){
@@ -78,7 +95,7 @@ export function fetchPosts(){
 };
 
 
-export function fetchSortedPosts(sortField) {
+export function sortPosts(sortField) {
     return (dispatch, getState) => {
 
         let { sortField:currentSortField, sortDirection } = getState().sortingInfo;
@@ -100,7 +117,7 @@ export function fetchSortedPosts(sortField) {
     };
 }
 
-export function addTodoThunk(
+export function addTodo(
     username,
     email,
     text,
@@ -121,7 +138,7 @@ export function addTodoThunk(
 
         return fetch(url.create_todo, options)
             .then(checkStatus)
-            .then(json => {
+            .then(() => {
                 dispatch(fetchPosts());
             })
     }
@@ -147,6 +164,85 @@ export function changePage(direction){
     };
 };
 
+export function editTodo(
+    id,
+    text,
+    status
+){
+    return (dispatch) => {
+        if(typeof(status) !== 'undefined' || typeof(text) !== 'undefined'){
+            const form = createBodyForEditingTodoRequest(status, text);
+
+            const options = {
+                method: 'POST',
+                mode: 'cors',
+                body: form,
+            };
+
+            const url_edit = url.edit_todo + `/${id}?developer=Yaroslav_Grushchak`;
+
+
+            return fetch(url_edit, options)
+                .then(checkStatus)
+                .then(json => {
+                    dispatch(editTodoInfo(false));
+                    dispatch(fetchPosts());
+                });
+        }
+    }
+}
+
+const createBodyForEditingTodoRequest = (
+    status,
+    text
+) => {
+    let params_string = [];
+
+    var form = new FormData();
+
+    let token = 'beejee';
+    let encodedToken = fixedEncodeURIComponent('token') +
+        '=' +
+        fixedEncodeURIComponent(token);
+
+    if(typeof(status) !== 'undefined'){
+        form.append('status', status);
+
+        let encodedStatus = fixedEncodeURIComponent('status') +
+            '=' +
+            fixedEncodeURIComponent(status);
+
+        params_string.push(encodedStatus);
+    }
+    if(typeof(text) !== 'undefined'){
+        form.append('text', text);
+
+        let encodedText = fixedEncodeURIComponent('text') +
+            '=' +
+            fixedEncodeURIComponent(text);
+
+        params_string.push(encodedText);
+    }
+
+    params_string.push(encodedToken);
+
+    params_string = params_string.join('&');
+
+    const signature = md5(params_string);
+
+    form.append('token', 'beejee');
+    form.append('signature', signature);
+
+    return form;
+};
+
+function fixedEncodeURIComponent(str) {
+    return encodeURIComponent(str).replace(/[!'()*]/g, function(c) {
+        return '%' + c.charCodeAt(0).toString(16);
+    });
+}
+
+
 function checkStatus(response) {
     if (response.status >= 200 && response.status < 300) {
         return response.json();
@@ -155,40 +251,3 @@ function checkStatus(response) {
         console.log('An error occurred.', response);
     }
 };
-
-// export function editTodo(
-//     text,
-//     status
-// ){
-//     return (dispatch) => {
-//         var form = new FormData();
-//         if(typeof(status) !== 'undefined'){
-//             form.append('status', status);
-//         }
-//         if(typeof(text) !== 'undefined'){
-//             form.append('text', text);
-//         }
-//         form.append('token', 'beejee');
-//
-//         const options = {
-//             method: 'POST',
-//             mode: 'cors',
-//             body: form,
-//             headers: {
-//                 'Authorization': 'beejee'
-//             }
-//         };
-//
-//         return fetch(url, options)
-//             .then(checkStatus)
-//             .then(json => {
-//                 console.log(json);
-//             })
-//     }
-// }
-//
-// function fixedEncodeURIComponent(str) {
-//     return encodeURIComponent(str).replace(/[!'()*]/g, function(c) {
-//         return '%' + c.charCodeAt(0).toString(16);
-//     });
-// }

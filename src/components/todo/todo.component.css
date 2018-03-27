@@ -35,6 +35,10 @@
 }
 
 @media (max-width: 768px){
+    #todo-list .todo .user-info{
+        border: 1px solid transparent;
+    }
+
     #todo-list .user-info{
         display: block;
         margin: 0 auto;

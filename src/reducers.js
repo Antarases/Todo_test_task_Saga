@@ -5,7 +5,8 @@ import {
     CHANGE_SORT_INFO,
     ADD_TODO,
     CHANGE_PAGE,
-    SIGN_IN
+    SIGN_IN,
+    EDIT_TODO_INFO
 } from './actions';
 
 
@@ -103,11 +104,29 @@ const signIn = (
     }
 };
 
+const editTodoInfo = (
+    state={isEditing: false},
+    action
+) => {
+    switch(action.type){
+        case EDIT_TODO_INFO:
+            return {
+                isEditing: action.isEditing,
+                id: action.id,
+                text: action.text,
+                status: action.status
+            };
+        default:
+            return state;
+    }
+};
+
 const rootReducer = combineReducers({
     todos,
     sortingInfo,
     pagination,
-    signIn
+    signIn,
+    editTodoInfo
 });
 
 export default rootReducer;

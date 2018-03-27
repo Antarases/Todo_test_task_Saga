@@ -16,12 +16,16 @@ class TodoList extends React.Component{
     }
 
     render(){
-        const {todos} = this.props;
+        const {todos, isAdmin} = this.props;
 
         return <section id="todo-list">
             {
                 todos.map(todo =>
-                    <Todo key={todo.id} {...todo} />
+                    <Todo
+                        key={todo.id}
+                        isAdmin={isAdmin}
+                        {...todo}
+                    />
                 )
             }
         </section>
@@ -39,5 +43,8 @@ const mapStateToProps = (state) => {
     };
 };
 
+TodoList = connect(
+    mapStateToProps
+)(TodoList);
 
-export default connect(mapStateToProps)(TodoList);
+export default TodoList;

@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { fetchSortedPosts } from '../../actions';
+import { sortPosts } from '../../actions';
 
 let SortingCase = ({
     onClick,
@@ -21,7 +21,7 @@ let SortingCase = ({
 const mapDispatchToProps = (dispatch, ownProps) => {
     return {
         onClick: () => dispatch(
-            fetchSortedPosts(ownProps.sortField)
+            sortPosts(ownProps.sortField)
         )
     };
 };

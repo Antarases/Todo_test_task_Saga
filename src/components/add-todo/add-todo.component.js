@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Grid, Row, Col, FormControl, Button } from 'react-bootstrap';
 import {
-    addTodoThunk
+    addTodo
 } from '../../actions';
 import imageValidation from '../../imageValidation';
 
@@ -22,7 +22,7 @@ class AddTodo extends React.Component {
                 <form action=""
                     onSubmit={(e) => {
                         e.preventDefault();
-                        dispatch(addTodoThunk(
+                        dispatch(addTodo(
                             this.username.value,
                             this.email.value,
                             this.text.value,
@@ -35,6 +35,16 @@ class AddTodo extends React.Component {
                         this.image.value=null;
                     }}
                 >
+                    <Row>
+                        <Col
+                            className="title"
+                            lg={4} md={6} sm={6} xs={12}
+                            lgOffset={4} mdOffset={3} smOffset={3}
+                        >
+                            Add Todo
+                        </Col>
+                    </Row>
+
                     <Row>
                         <Col
                             className="username"
@@ -129,7 +139,5 @@ class AddTodo extends React.Component {
         )
     }
 };
-
-
 
 export default connect()(AddTodo);
