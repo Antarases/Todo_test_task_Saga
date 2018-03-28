@@ -80,7 +80,7 @@ export function fetchPosts(){
         let { sortField, sortDirection } = getState().sortingInfo;
         const { currentPage } = getState().pagination;
 
-        const fecthUrl = url.fetch_todos+`&sort_field=${sortField}&sort_direction=${sortDirection}`;
+        const fecthUrl = url.fetch_todos+`&sort_field=${sortField}&sort_direction=${sortDirection}&page=${currentPage}`;
 
         return fetch(fecthUrl)
             .then(checkStatus)
@@ -138,7 +138,8 @@ export function addTodo(
 
         return fetch(url.create_todo, options)
             .then(checkStatus)
-            .then(() => {
+            .then((json) => {
+                console.log(json);
                 dispatch(fetchPosts());
             })
     }

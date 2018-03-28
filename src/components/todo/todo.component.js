@@ -16,7 +16,8 @@ let Todo = ({
     text,
     status,
     image_path,
-    isAdmin
+    isAdmin,
+    isPreview
 }) => {
     let completed;
     if(status === 0){
@@ -34,7 +35,8 @@ let Todo = ({
                 <div
                     className="image"
                     style={{
-                        background: `url("${image_path}") 50% 50% no-repeat`
+                        background: `url("${image_path}") 50% 50% no-repeat`,
+                        backgroundSize: 'contain'
                     }}
                 >
                 </div>
@@ -50,7 +52,8 @@ let Todo = ({
                     Status: {completed ? 'completed' : 'not completed' }
                 </div>
 
-                {   isAdmin &&
+                {
+                    isAdmin && !isPreview &&
                     <Col lg={12} md={12} sm={12} xs={12}>
                         <EditTodoButton
                             id={id}
@@ -79,7 +82,8 @@ Todo.propTypes = {
         status: PropTypes.number,
         image_path: PropTypes.string
     }),
-    isAdmin: PropTypes.bool
+    isAdmin: PropTypes.bool,
+    isPreview: PropTypes.bool
 };
 
 const mapStateToProps = (state) => {
