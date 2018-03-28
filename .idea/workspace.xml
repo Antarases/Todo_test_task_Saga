@@ -2,13 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8cfa91a9-afad-4117-8c82-9b9fa0bad743" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/components/todo-preview/todo-preview.component.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/components/todo-preview/todo-preview.component.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/actions.js" afterPath="$PROJECT_DIR$/src/actions.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/add-todo/add-todo.component.css" afterPath="$PROJECT_DIR$/src/components/add-todo/add-todo.component.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/add-todo/add-todo.component.js" afterPath="$PROJECT_DIR$/src/components/add-todo/add-todo.component.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/todo/todo.component.js" afterPath="$PROJECT_DIR$/src/components/todo/todo.component.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/configureStore.js" afterPath="$PROJECT_DIR$/src/configureStore.js" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -36,8 +33,8 @@
       <file leaf-file-name="actions.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/actions.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="517">
-              <caret line="141" column="34" lean-forward="false" selection-start-line="141" selection-start-column="34" selection-end-line="141" selection-end-column="34" />
+            <state relative-caret-position="279">
+              <caret line="127" column="42" lean-forward="true" selection-start-line="127" selection-start-column="42" selection-end-line="127" selection-end-column="42" />
               <folding />
             </state>
           </provider>
@@ -47,7 +44,7 @@
         <entry file="file://$PROJECT_DIR$/src/reducers.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="204">
-              <caret line="21" column="45" lean-forward="true" selection-start-line="18" selection-start-column="16" selection-end-line="21" selection-end-column="45" />
+              <caret line="21" column="45" lean-forward="false" selection-start-line="18" selection-start-column="16" selection-end-line="21" selection-end-column="45" />
               <folding />
             </state>
           </provider>
@@ -56,8 +53,8 @@
       <file leaf-file-name="add-todo.component.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/add-todo/add-todo.component.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2676">
-              <caret line="187" column="50" lean-forward="true" selection-start-line="187" selection-start-column="50" selection-end-line="187" selection-end-column="50" />
+            <state relative-caret-position="340">
+              <caret line="39" column="0" lean-forward="false" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
               </folding>
@@ -77,26 +74,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="todo-preview.component.css" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/components/todo-preview/todo-preview.component.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1173">
-              <caret line="69" column="0" lean-forward="false" selection-start-line="69" selection-start-column="0" selection-end-line="69" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="add-todo.component.css" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/components/add-todo/add-todo.component.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="627">
-              <caret line="39" column="0" lean-forward="true" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="todo.component.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/todo/todo.component.js">
           <provider selected="true" editor-type-id="text-editor">
@@ -104,6 +81,9 @@
               <caret line="55" column="20" lean-forward="false" selection-start-line="55" selection-start-column="20" selection-end-line="55" selection-end-column="20" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
+                <marker date="1522223558721" expanded="true" signature="378:1816" ph="{...}" />
+                <marker date="1522223558721" expanded="true" signature="532:1807" ph="&lt;Grid/&gt;" />
+                <marker date="1522223558721" expanded="true" signature="1836:2107" ph="{&quot;isAdmin&quot;: PropTypes.bool...}" />
               </folding>
             </state>
           </provider>
@@ -159,7 +139,6 @@
         <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/src/App.js" />
         <option value="$PROJECT_DIR$/src/TodoApp.js" />
-        <option value="$PROJECT_DIR$/src/configureStore.js" />
         <option value="$PROJECT_DIR$/src/actions/actions.js" />
         <option value="$PROJECT_DIR$/src/index.js" />
         <option value="$PROJECT_DIR$/src/components/root/root.component.js" />
@@ -189,10 +168,11 @@
         <option value="$PROJECT_DIR$/src/setPreviewImageSrc.js" />
         <option value="$PROJECT_DIR$/src/components/add-todo/add-todo.component.css" />
         <option value="$PROJECT_DIR$/src/components/todo-preview/todo-preview.component.css" />
-        <option value="$PROJECT_DIR$/src/components/add-todo/add-todo.component.js" />
         <option value="$PROJECT_DIR$/src/components/todo-preview/todo-preview.component.js" />
         <option value="$PROJECT_DIR$/src/components/todo/todo.component.js" />
+        <option value="$PROJECT_DIR$/src/components/add-todo/add-todo.component.js" />
         <option value="$PROJECT_DIR$/src/actions.js" />
+        <option value="$PROJECT_DIR$/src/configureStore.js" />
       </list>
     </option>
   </component>
@@ -610,12 +590,12 @@
       <workItem from="1521540499998" duration="633000" />
       <workItem from="1521908855753" duration="21425000" />
       <workItem from="1522005992639" duration="22330000" />
-      <workItem from="1522088353827" duration="22674000" />
+      <workItem from="1522088353827" duration="23795000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="158905000" />
+    <option name="totallyTimeSpent" value="160026000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1616" height="876" extended-state="6" />
@@ -835,14 +815,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/login-form/login-form.component.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="636">
-          <caret line="93" column="0" lean-forward="true" selection-start-line="93" selection-start-column="0" selection-end-line="93" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/pagination/pagination.component.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
@@ -870,6 +842,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="425">
           <caret line="28" column="0" lean-forward="true" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -878,23 +851,6 @@
         <state relative-caret-position="476">
           <caret line="28" column="0" lean-forward="true" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/todo-app/todo-app.component.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="636">
-          <caret line="46" column="0" lean-forward="true" selection-start-line="46" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#26#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/configureStore.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="20" column="0" lean-forward="true" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -1011,7 +967,7 @@
     <entry file="file://$PROJECT_DIR$/src/reducers.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="204">
-          <caret line="21" column="45" lean-forward="true" selection-start-line="18" selection-start-column="16" selection-end-line="21" selection-end-column="45" />
+          <caret line="21" column="45" lean-forward="false" selection-start-line="18" selection-start-column="16" selection-end-line="21" selection-end-column="45" />
           <folding />
         </state>
       </provider>
@@ -1032,24 +988,53 @@
           <caret line="55" column="20" lean-forward="false" selection-start-line="55" selection-start-column="20" selection-end-line="55" selection-end-column="20" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
+            <marker date="1522223558721" expanded="true" signature="378:1816" ph="{...}" />
+            <marker date="1522223558721" expanded="true" signature="532:1807" ph="&lt;Grid/&gt;" />
+            <marker date="1522223558721" expanded="true" signature="1836:2107" ph="{&quot;isAdmin&quot;: PropTypes.bool...}" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/login-form/login-form.component.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1462">
+          <caret line="93" column="0" lean-forward="true" selection-start-line="93" selection-start-column="0" selection-end-line="93" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/todo-app/todo-app.component.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="629">
+          <caret line="46" column="0" lean-forward="true" selection-start-line="46" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/add-todo/add-todo.component.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2676">
-          <caret line="187" column="50" lean-forward="true" selection-start-line="187" selection-start-column="50" selection-end-line="187" selection-end-column="50" />
+        <state relative-caret-position="340">
+          <caret line="39" column="0" lean-forward="false" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/configureStore.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#52#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/actions.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="517">
-          <caret line="141" column="34" lean-forward="false" selection-start-line="141" selection-start-column="34" selection-end-line="141" selection-end-column="34" />
+        <state relative-caret-position="279">
+          <caret line="127" column="42" lean-forward="true" selection-start-line="127" selection-start-column="42" selection-end-line="127" selection-end-column="42" />
           <folding />
         </state>
       </provider>

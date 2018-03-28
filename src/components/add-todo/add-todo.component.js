@@ -38,14 +38,15 @@ class AddTodo extends React.Component {
                                 this.image.files[0]
                             ));
 
-                            this.state.username='';
-                            this.state.email='';
-                            this.state.text='';
                             this.image.value=null;
 
                             this.setState({
                                 isPreview: false,
-                                previewImgSrc: null
+                                previewImgSrc: null,
+                                username: '',
+                                email: '',
+                                text: ''
+
                             });
                         }}
                     >

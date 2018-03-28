@@ -138,8 +138,7 @@ export function addTodo(
 
         return fetch(url.create_todo, options)
             .then(checkStatus)
-            .then((json) => {
-                console.log(json);
+            .then(() => {
                 dispatch(fetchPosts());
             })
     }

@@ -16,5 +16,4 @@ function configureStore(preloadedState) {
     )
 }
 
-
 export default configureStore;
