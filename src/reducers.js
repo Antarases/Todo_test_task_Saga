@@ -3,23 +3,24 @@ import { combineReducers } from 'redux';
 import {
     SET_TODOS,
     CHANGE_SORT_INFO,
-    ADD_TODO,
     CHANGE_PAGE,
     SIGN_IN,
-    EDIT_TODO_INFO
+    EDIT_TODO_INFO,
+    EDIT_TODO
 } from './actions';
 
 
 const todo = (state, action) => {
     switch(action.type){
-        case ADD_TODO:
+        case EDIT_TODO:
+            if(state.id !== action.id){
+                return state;
+            }
+
             return {
-                id: action.id,
-                username: action.username,
-                email: action.email,
+                ...state,
                 text: action.text,
-                status: action.status,
-                image_path: action.image_path
+                status: action.status
             };
         default:
             return;
@@ -32,11 +33,10 @@ const todos = (state=[], action) => {
             return [
                 ...action.todos
             ];
-        case ADD_TODO:
-            return [
-                ...state,
-                todo(null, action)
-            ];
+        case EDIT_TODO:
+            return state.map(t =>
+                todo(t, action)
+            );
         default:
             return state;
 

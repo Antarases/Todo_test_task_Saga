@@ -67,3 +67,15 @@
         padding-left: 30px;
     }
 }
+
+
+@media (max-width: 350px){
+    #todo-preview .todo{
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    #todo-preview .todo .image{
+        width: 316px;
+    }
+}

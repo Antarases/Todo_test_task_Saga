@@ -12,10 +12,10 @@ Promise._immediateFn = setAsap;
 
 export const SET_TODOS = 'SET_TODOS';
 export const CHANGE_SORT_INFO = 'CHANGE_SORT_INFO';
-export const ADD_TODO = 'ADD_TODO';
 export const CHANGE_PAGE = 'CHANGE_PAGE';
 export const SIGN_IN = 'SIGN_IN';
 export const EDIT_TODO_INFO = 'EDIT_TODO_INFO';
+export const EDIT_TODO = 'EDIT_TODO';
 
 const setTodos = (todos) => {
     return {
@@ -72,6 +72,19 @@ export const editTodoInfo = (
     };
 };
 
+const editTodoAC = (
+    id,
+    text,
+    status
+) => {
+    return {
+        type: EDIT_TODO,
+        id,
+        text,
+        status
+    };
+};
+
 /*--------------------------------------------------------------------------------------------------------------------*/
 
 export function fetchPosts(){
@@ -85,11 +98,11 @@ export function fetchPosts(){
         return fetch(fecthUrl)
             .then(checkStatus)
             .then(json => {
+                dispatch(setTodos(json.message.tasks));
                 dispatch(changePageAC(
                     currentPage,
                     Math.ceil(json.message.total_task_count / 3)
                 ));
-                dispatch(setTodos(json.message.tasks))
             })
     };
 };
@@ -112,7 +125,7 @@ export function sortPosts(sortField) {
             .then(checkStatus)
             .then(json => {
                 dispatch(changeSortInfo(sortField, sortDirection));
-                dispatch(setTodos(json.message.tasks))
+                dispatch(setTodos(json.message.tasks));
             })
     };
 }
@@ -186,11 +199,11 @@ export function editTodo(
                 .then(checkStatus)
                 .then(json => {
                     dispatch(editTodoInfo(false));
-                    dispatch(fetchPosts());
+                    dispatch(editTodoAC(id, text, status));
                 });
         }
-    }
-}
+    };
+};
 
 const createBodyForEditingTodoRequest = (
     status,
@@ -198,7 +211,7 @@ const createBodyForEditingTodoRequest = (
 ) => {
     let params_string = [];
 
-    var form = new FormData();
+    let form = new FormData();
 
     let token = 'beejee';
     let encodedToken = fixedEncodeURIComponent('token') +
