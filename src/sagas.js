@@ -1,14 +1,15 @@
+import {all, takeEvery, takeLatest, select, put, call} from 'redux-saga/effects';
+
 import url from './server_url';
 import md5 from 'md5';
 
-/*---- Polyfills -------------------------------------------------------------------*/
-import 'whatwg-fetch';
-import 'promise-polyfill/src/polyfill';
-import setAsap from 'setasap';
-Promise._immediateFn = setAsap;
-/*-----------------------------------------------------------------------------------*/
-
 /*-------- Action Creators ----------------------------------------------------------*/
+
+export const FETCH_POSTS = 'FETCH_POSTS';
+export const SORT_POSTS = 'SORT_POSTS';
+export const ADD_TODO = 'ADD_TODO';
+export const CHANGE_PAGE_SAGA = 'CHANGE_PAGE_SAGA';
+export const EDIT_TODO_SAGA = 'EDIT_TODO_SAGA';
 
 export const SET_TODOS = 'SET_TODOS';
 export const CHANGE_SORT_INFO = 'CHANGE_SORT_INFO';
@@ -87,33 +88,43 @@ const editTodoAC = (
 
 /*--------------------------------------------------------------------------------------------------------------------*/
 
-export function fetchPosts(){
-    return (dispatch, getState) => {
-
-        let { sortField, sortDirection } = getState().sortingInfo;
-        const { currentPage } = getState().pagination;
+function* fetchPosts(){
+    try{
+        const { sortField, sortDirection } = yield select(state => state.sortingInfo);
+        const { currentPage } = yield select(state => state.pagination);
 
         const fecthUrl = url.fetch_todos+`&sort_field=${sortField}&sort_direction=${sortDirection}&page=${currentPage}`;
 
-        return fetch(fecthUrl)
-            .then(checkStatus)
-            .then(json => {
-                dispatch(setTodos(json.message.tasks));
-                dispatch(changePageAC(
-                    currentPage,
-                    Math.ceil(json.message.total_task_count / 3)
-                ));
-            })
-    };
-};
+        const response = yield call(fetchApi, fecthUrl);
 
+        yield put(setTodos(response.message.tasks));
 
-export function sortPosts(sortField) {
-    return (dispatch, getState) => {
+        if(response.message.total_task_count > 3)
+        {
+            yield put(changePageAC(
+                currentPage,
+                Math.ceil(response.message.total_task_count / 3)
+            ));
+        }
+    } catch(err){
+        console.log('An error occurred: ', err);
+    }
+}
 
-        let { sortField:currentSortField, sortDirection } = getState().sortingInfo;
+function* watchFetchPosts(){
+    yield takeLatest(FETCH_POSTS, fetchPosts)
+}
+
+/*--------------------------------------------------------------------------------------------------------------------*/
+
+function* sortPosts({
+    sortField
+}){
+    try{
+        console.log('sortField: ', sortField);
+        let { sortField:currentSortField, sortDirection } = yield select(state => state.sortingInfo);
         if(sortField === currentSortField){
-           sortDirection = sortDirection === 'asc' ? 'desc' : 'asc';    //reversing sorting direction
+            sortDirection = sortDirection === 'asc' ? 'desc' : 'asc';    //reversing sorting direction
         }
         else {
             sortDirection = 'asc';
@@ -121,22 +132,28 @@ export function sortPosts(sortField) {
 
         const sortUrl = url.fetch_todos+`&sort_field=${sortField}&sort_direction=${sortDirection}`;
 
-        return fetch(sortUrl)
-            .then(checkStatus)
-            .then(json => {
-                dispatch(changeSortInfo(sortField, sortDirection));
-                dispatch(setTodos(json.message.tasks));
-            })
-    };
+        const response = yield call(fetchApi, sortUrl);
+        yield put(changeSortInfo(sortField, sortDirection));
+        yield put(setTodos(response.message.tasks));
+    } catch(err){
+        console.log('An error occurred: ', err);
+    }
 }
 
-export function addTodo(
+function* watchSortPosts(){
+    yield takeLatest(SORT_POSTS, sortPosts);
+}
+
+/*--------------------------------------------------------------------------------------------------------------------*/
+
+function* addTodo({
     username,
     email,
     text,
     image
-){
-    return (dispatch) => {
+}){
+    console.log(username,email,text,image);
+    try{
         var form = new FormData();
         form.append('username', username);
         form.append('email', email);
@@ -149,40 +166,53 @@ export function addTodo(
             body: form
         };
 
-        return fetch(url.create_todo, options)
-            .then(checkStatus)
-            .then(() => {
-                dispatch(fetchPosts());
-            })
+        yield call(fetchApi, url.create_todo, options);
+        yield call(fetchPosts);
+    } catch(err){
+        console.log('An error occurred: ', err);
     }
 }
 
-export function changePage(direction){
-    return (dispatch, getState) => {
-        let {currentPage} = getState().pagination;
+function* watchAddTodo(){
+    yield takeLatest(ADD_TODO, addTodo)
+}
+
+/*--------------------------------------------------------------------------------------------------------------------*/
+
+function* changePage({
+    direction
+}){
+    try{
+        let {currentPage} = yield select(state => state.pagination);
         direction === 'next' ?
             currentPage++ :
             currentPage--;
 
         const fecthUrl = url.fetch_todos+'&page='+currentPage;
-        return fetch(fecthUrl)
-            .then(checkStatus)
-            .then(json => {
-                dispatch(setTodos(json.message.tasks));
-                dispatch(changePageAC(
-                    currentPage,
-                    Math.ceil(json.message.total_task_count / 3)
-                ));
-            })
-    };
-};
+        const response = yield call(fetchApi, fecthUrl);
 
-export function editTodo(
+        yield put(setTodos(response.message.tasks));
+        yield put(changePageAC(
+            currentPage,
+            Math.ceil(response.message.total_task_count / 3)
+        ));
+    } catch(err){
+        console.log('An error occurred: ', err);
+    }
+}
+
+function* watchChangePage(){
+    yield takeEvery(CHANGE_PAGE_SAGA, changePage);
+}
+
+/*--------------------------------------------------------------------------------------------------------------------*/
+
+function* editTodo({
     id,
     text,
     status
-){
-    return (dispatch) => {
+}){
+    try{
         if(typeof(status) !== 'undefined' || typeof(text) !== 'undefined'){
             const form = createBodyForEditingTodoRequest(status, text);
 
@@ -192,18 +222,35 @@ export function editTodo(
                 body: form,
             };
 
-            const url_edit = url.edit_todo + `/${id}?developer=Yaroslav_Grushchak`;
+            const url_edit = url.edit_todo + `/${id}?developer=ReduxSaga`;
 
+            yield call(fetchApi, url_edit, options);
 
-            return fetch(url_edit, options)
-                .then(checkStatus)
-                .then(json => {
-                    dispatch(editTodoInfo(false));
-                    dispatch(editTodoAC(id, text, status));
-                });
+            yield put(editTodoInfo(false));
+            yield put(editTodoAC(id, text, status));
         }
-    };
-};
+    } catch(err){
+        console.log('An error occurred: ', err);
+    }
+}
+
+function* watchEditTodo(){
+    yield takeEvery(EDIT_TODO_SAGA, editTodo);
+}
+
+/*--------------------------------------------------------------------------------------------------------------------*/
+
+export default function* rootSaga(){
+    yield all([
+        watchFetchPosts(),
+        watchSortPosts(),
+        watchAddTodo(),
+        watchChangePage(),
+        watchEditTodo()
+    ]);
+}
+
+const fetchApi = (url, options) => fetch(url, options).then(response => response.json());
 
 const createBodyForEditingTodoRequest = (
     status,
@@ -254,13 +301,3 @@ function fixedEncodeURIComponent(str) {
         return '%' + c.charCodeAt(0).toString(16);
     });
 }
-
-
-function checkStatus(response) {
-    if (response.status >= 200 && response.status < 300) {
-        return response.json();
-    }
-    else {
-        console.log('An error occurred.', response);
-    }
-};

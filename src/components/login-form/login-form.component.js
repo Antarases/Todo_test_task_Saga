@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { signIn } from '../../actions';
+import { signIn } from '../../sagas';
 import { connect } from 'react-redux';
 
 import { Grid, Col, FormControl, Button } from 'react-bootstrap';

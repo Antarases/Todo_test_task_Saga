@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { sortPosts } from '../../actions';
+import { SORT_POSTS } from '../../sagas';
 
 let SortingCase = ({
     onClick,
@@ -20,9 +20,10 @@ let SortingCase = ({
 
 const mapDispatchToProps = (dispatch, ownProps) => {
     return {
-        onClick: () => dispatch(
-            sortPosts(ownProps.sortField)
-        )
+        onClick: () => dispatch({
+            type: SORT_POSTS,
+            sortField: ownProps.sortField
+        })
     };
 };
 

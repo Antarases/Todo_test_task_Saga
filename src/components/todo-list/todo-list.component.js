@@ -1,9 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import {
-    fetchPosts
-} from '../../actions';
+import {FETCH_POSTS} from '../../sagas';
 import Todo from '../todo/todo.component';
 
 
@@ -12,7 +10,7 @@ class TodoList extends React.Component{
     componentDidMount(){
         const {dispatch} = this.props;
 
-        dispatch(fetchPosts());
+        dispatch({type: FETCH_POSTS});
     }
 
     render(){

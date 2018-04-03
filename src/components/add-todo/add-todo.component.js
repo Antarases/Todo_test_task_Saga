@@ -1,9 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Grid, Row, Col, FormControl, Button } from 'react-bootstrap';
-import {
-    addTodo
-} from '../../actions';
+import { ADD_TODO } from '../../sagas';
 import imageValidation from '../../imageValidation';
 import TodoPreview from '../todo-preview/todo-preview.component';
 
@@ -31,12 +29,13 @@ class AddTodo extends React.Component {
                     <form action=""
                         onSubmit={(e) => {
                             e.preventDefault();
-                            dispatch(addTodo(
-                                this.state.username,
-                                this.state.email,
-                                this.state.text,
-                                this.image.files[0]
-                            ));
+                            dispatch({
+                                type: ADD_TODO,
+                                username: this.state.username,
+                                email: this.state.email,
+                                text: this.state.text,
+                                image: this.image.files[0]
+                            });
 
                             this.image.value=null;
 

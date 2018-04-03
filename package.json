@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "babel-polyfill": "^6.26.0",
     "md5": "^2.2.1",
     "promise-polyfill": "7.1.0",
     "prop-types": "^15.6.1",
@@ -13,6 +14,7 @@
     "react-scripts": "1.1.1",
     "redux": "^3.7.2",
     "redux-logger": "^3.0.6",
+    "redux-saga": "^0.16.0",
     "redux-thunk": "^2.2.0",
     "setasap": "^2.0.1",
     "whatwg-fetch": "^2.0.3"

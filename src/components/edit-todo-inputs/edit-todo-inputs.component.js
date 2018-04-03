@@ -2,9 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import { Grid, Row, Col, FormControl, Button } from 'react-bootstrap';
 
-import {
-    editTodo
-} from '../../actions';
+import { EDIT_TODO_SAGA } from '../../sagas';
 
 import './edit-todo-inputs.component.css';
 
@@ -144,11 +142,12 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         onClick: (id, text, status) => {
-            dispatch(editTodo(
+            dispatch({
+                type: EDIT_TODO_SAGA,
                 id,
                 text,
                 status
-            ));
+            });
         }
     };
 };

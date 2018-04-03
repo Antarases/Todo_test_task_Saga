@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { changePage } from '../../actions';
+import { CHANGE_PAGE_SAGA } from '../../sagas';
 
 import { Grid, Button } from 'react-bootstrap';
 
@@ -66,12 +66,14 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        onPrevClick: () => dispatch(
-            changePage('prev')
-        ),
-        onNextClick: () => dispatch(
-            changePage('next')
-        )
+        onPrevClick: () => dispatch({
+            type: CHANGE_PAGE_SAGA,
+            direction: 'prev'
+        }),
+        onNextClick: () => dispatch({
+            type: CHANGE_PAGE_SAGA,
+            direction: 'next'
+        })
     };
 };
 
